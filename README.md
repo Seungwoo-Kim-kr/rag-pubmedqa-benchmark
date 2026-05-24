@@ -137,6 +137,26 @@ Questions are categorised into three types — **local factual**, **global synth
 
 ---
 
+## Estimated Runtime
+
+Based on actual measurements (n=50 questions, GPT-4o-mini, `text-embedding-3-small`):
+
+| Stage | Time |
+|-------|------|
+| Data download + FAISS index build | ~3–5 min |
+| Direct QA (3.19s/q × 50) | ~2.7 min |
+| Standard RAG (1.95s/q × 50) | ~1.6 min |
+| Summary-Mediated QA (4.12s/q × 50) | ~3.4 min |
+| LightRAG (5.60s/q × 50) | ~4.7 min |
+| LLM-as-judge evaluation (180 records) | ~5–6 min |
+| **Total (all 4 pipelines + judge)** | **~21–23 min** |
+
+To run only 2–3 pipelines, subtract the skipped pipeline time. Running with `--limit 5` completes in ~2 min for quick validation.
+
+> **API cost estimate**: running all 4 pipelines + judge on n=50 questions costs roughly **$0.10–0.20** with GPT-4o-mini.
+
+---
+
 ## Setup
 
 ```bash
