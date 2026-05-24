@@ -1,0 +1,21 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+
+# Data (too large or auto-generated)
+data/raw/
+data/processed/
+data/indexes/
+data/lightrag_indexes/
+
+# Raw experiment outputs
+results/raw_outputs/
+results/scored_outputs/
+
+# Python env
+.venv/
+venv/
+env/
+*.egg-info/

@@ -1,0 +1,32 @@
+dataset:
+  name: "qiaojin/PubMedQA"        # HuggingFace dataset ID
+  split: "train"                  # pqa_labeled split
+  num_docs: 50                    # 문서 수
+  num_questions: 50               # 총 질문 수
+
+llm:
+  model: "gpt-4o-mini"            # answer generation 모델
+  temperature: 0.0                # 재현성을 위해 0으로 고정
+  max_tokens: 512
+
+embedding:
+  model: "text-embedding-3-small" # OpenAI embedding 모델 (GPU 불필요)
+  batch_size: 32
+
+retrieval:
+  chunk_size: 400                 # 토큰 단위 chunk 크기
+  chunk_overlap: 80               # chunk 간 overlap
+  top_k: 5                        # 검색할 chunk 수
+
+baselines:
+  - direct_qa
+  - standard_rag
+  - summary_mediated_qa
+  # lightrag: Python 3.10+ 필요 — python run_lightrag_standalone.py 로 별도 실행
+
+paths:
+  data_processed: "data/processed"
+  qa_sets: "data/qa_sets"
+  results_raw: "results/raw_outputs"
+  results_scored: "results/scored_outputs"
+  results_analysis: "results/analysis"
