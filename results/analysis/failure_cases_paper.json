@@ -1,0 +1,93 @@
+[
+  {
+    "failure_type": "correct",
+    "baseline": "summary_mediated_qa",
+    "question_type": "terminology_sensitive",
+    "token_f1": 0.9143,
+    "retrieval_hit": true,
+    "question": "What does '30-day mortality' refer to in this study?",
+    "gold_answer": "30-day mortality refers to the percentage of patients who die within 30 days following emergency laparotomy.",
+    "predicted_answer": "'30-day mortality' refers to the percentage of patients who died within 30 days following an emergency laparotomy.",
+    "gold_evidence": [
+      "The primary end point of the study was 30-day mortality, age-related 30-day mortality and 1-year all-cause mortality."
+    ]
+  },
+  {
+    "failure_type": "correct",
+    "baseline": "direct_qa",
+    "question_type": "local_factual",
+    "token_f1": 1.0,
+    "retrieval_hit": false,
+    "question": "What treatment resulted in lace plant leaves with a significantly lower number of perforations compared to controls?",
+    "gold_answer": "In vivo cyclosporine A (CsA) treatment resulted in lace plant leaves with a significantly lower number of perforations compared to controls.",
+    "predicted_answer": "In vivo cyclosporine A (CsA) treatment resulted in lace plant leaves with a significantly lower number of perforations compared to controls.",
+    "gold_evidence": [
+      "This treatment resulted in lace plant leaves with a significantly lower number of perforations compared to controls, and that displayed mitochondrial dynamics similar to that of non-PCD cells."
+    ]
+  },
+  {
+    "failure_type": "global_synthesis_failure",
+    "baseline": "standard_rag",
+    "question_type": "global_synthesis",
+    "token_f1": 0.0286,
+    "retrieval_hit": true,
+    "question": "How do the findings from the study on infants experiencing apparent life-threatening events during bathing contribute to our understanding of potential underlying causes and long-term outcomes related to aquagenic urticaria and similar conditions?",
+    "gold_answer": "The study suggests that the apparent life-threatening events in infants during bathing may be linked to a condition similar to aquagenic urticaria, as indicated by the presence of dermographism in their families and the increase in blood histamine levels after bath exposure. Moreover, while most infants showed improvement after avoiding baths, a significant number continued to experience related issues, indicating potential long-term effects.",
+    "predicted_answer": "Not found in retrieved context.",
+    "gold_evidence": [
+      "The passage states: 'The hypothesis of an equivalent of aquagenic urticaria was then considered... All six infants had dermographism. We found an increase in blood histamine levels after a trial bath in the two infants tested. The evolution of these \"aquagenic maladies\" was favourable after a few weeks without baths. After a 2-7 year follow-up, three out of seven infants continue to suffer from troubles associated with sun or water.'"
+    ]
+  },
+  {
+    "failure_type": "terminology_mismatch",
+    "baseline": "standard_rag",
+    "question_type": "terminology_sensitive",
+    "token_f1": 0.0,
+    "retrieval_hit": true,
+    "question": "What is meant by 'long-term outcome' in this context?",
+    "gold_answer": "The long-term outcome refers to the results and overall health status of patients after undergoing a pull-through procedure for Hirschsprung disease, as assessed by a 15-item post-pull-through questionnaire.",
+    "predicted_answer": "Not found in retrieved context.",
+    "gold_evidence": [
+      "The study examined the long-term outcome of TERPT versus conventional transabdominal (ABD) pull-through for HD."
+    ]
+  },
+  {
+    "failure_type": "grounding_failure",
+    "baseline": "direct_qa",
+    "question_type": "local_factual",
+    "token_f1": 0.1053,
+    "retrieval_hit": false,
+    "question": "What percentage of women adhered to mammography screening through telephone counseling compared to usual care during 1996?",
+    "gold_answer": "71%",
+    "predicted_answer": "71% of women adhered to mammography screening through telephone counseling compared to 61% through usual care during 1996.",
+    "gold_evidence": [
+      "Compared to usual care alone, telephone counseling promoted a significantly higher proportion of women having mammograms on schedule (71% vs 61%) than did tailored print (67% vs 61%) but only after the first year of intervention (during 1996)."
+    ]
+  },
+  {
+    "failure_type": "low_overlap",
+    "baseline": "standard_rag",
+    "question_type": "local_factual",
+    "token_f1": 0.0,
+    "retrieval_hit": true,
+    "question": "What percentage of patients diagnosed with NASH were female?",
+    "gold_answer": "51.7% of NASH patients were female.",
+    "predicted_answer": "Not found in retrieved context.",
+    "gold_evidence": [
+      "NASH was diagnosed in 58 patients (61%; 30 f) and ASH in 37 (39%; 9 f)."
+    ]
+  },
+  {
+    "failure_type": "retrieval_miss",
+    "baseline": "direct_qa",
+    "question_type": "local_factual",
+    "token_f1": 0.2857,
+    "retrieval_hit": false,
+    "question": "What percentage of visits included a physician response of reviewing family history?",
+    "gold_answer": "53.5%",
+    "predicted_answer": "53.5% of visits included a physician response of reviewing family history.",
+    "gold_evidence": [
+      "Of the remaining 695 visits, physician responses were reviewed family history (n = 372, 53.5%)"
+    ]
+  }
+]
