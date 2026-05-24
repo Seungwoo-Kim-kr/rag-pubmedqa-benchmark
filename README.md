@@ -6,60 +6,38 @@ A systematic benchmark of four QA pipelines on the **PubMedQA** dataset (`pqa_la
 
 ---
 
-## Pipelines Compared
+## Pipeline Architectures
+
+![Pipelines](results/analysis/pipeline.png)
 
 | # | Pipeline | Description |
 |---|----------|-------------|
 | 1 | **Direct QA** | Question → LLM (no retrieval baseline) |
-| 2 | **Standard RAG** | Question → chunk retrieval (FAISS) → LLM |
-| 3 | **Summary-mediated QA** | Question → chunk retrieval → question-guided summary → LLM |
+| 2 | **Standard RAG** | Question → FAISS chunk retrieval → LLM |
+| 3 | **Summary-Mediated QA** | Question → chunk retrieval → question-guided summary → LLM |
 | 4 | **LightRAG** | Graph-based retrieval (standalone runner, requires Python 3.10+) |
 
 ---
 
 ## Results
 
-### Token F1 by Pipeline
+### Token F1 by Pipeline and Question Type
 
 ![F1 Bar](results/analysis/f1_bar.png)
 
-*Figure 1 — Token-level F1 scores across the four QA pipelines.*
+*Summary-Mediated QA leads on synthesis and terminology-sensitive questions; Direct QA remains competitive on local factual questions.*
 
-### F1 Heatmap (per question)
-
-![F1 Heatmap](results/analysis/f1_heatmap.png)
-
-*Figure 2 — Per-question F1 scores for each pipeline (rows = questions, columns = pipelines).*
-
-### LLM Judge Score Distribution
+### LLM Judge Verdict Distribution
 
 ![Judge Label Distribution](results/analysis/judge_label_dist.png)
 
-*Figure 3 — LLM-as-judge verdict distribution (Correct / Partial / Incorrect) per pipeline.*
-
-### Judge vs F1 Correlation
-
-![Judge vs F1](results/analysis/judge_vs_f1.png)
-
-*Figure 4 — Correlation between LLM judge scores and token F1.*
-
-### Judge Heatmap
-
-![Judge Heatmap](results/analysis/judge_heatmap.png)
-
-*Figure 5 — Per-question judge verdicts across pipelines.*
-
-### Failure Analysis
-
-![Failure Bar](results/analysis/failure_bar.png)
-
-*Figure 6 — Failure case counts per pipeline.*
+*LLM-as-judge (GPT-4o-mini) verdicts: Correct / Partial / Incorrect per pipeline.*
 
 ### Runtime Comparison
 
 ![Runtime Bar](results/analysis/runtime_bar.png)
 
-*Figure 7 — Average inference time per question (seconds).*
+*Average inference time per question (seconds). Standard RAG is fastest; LightRAG has the highest overhead.*
 
 ---
 
@@ -94,9 +72,7 @@ A systematic benchmark of four QA pipelines on the **PubMedQA** dataset (`pqa_la
 │   ├── metrics.py               # Token F1 and exact match
 │   └── failure_analysis.py      # Failure case extraction
 ├── results/
-│   ├── analysis/                # Figures and aggregated outputs
-│   └── judged/                  # Raw LLM judge results (JSON)
-├── prompts/                     # Prompt templates
+│   └── analysis/                # Figures and aggregated outputs
 └── .env.example                 # API key template
 ```
 
@@ -117,15 +93,9 @@ cp .env.example .env
 # Edit .env and paste your OpenAI API key
 ```
 
-### 3. Edit config (optional)
-
-Adjust `config.yaml` to change dataset size, model, chunk parameters, or enabled baselines.
-
 ---
 
 ## Usage
-
-### Run experiment pipelines
 
 ```bash
 # Run all baselines
@@ -136,24 +106,11 @@ python run_experiment.py --baselines direct_qa standard_rag
 
 # Quick test with 5 questions
 python run_experiment.py --limit 5
-```
 
-### Evaluate with LLM judge
-
-```bash
+# Evaluate with LLM judge
 python run_judge.py
-```
 
-### Run LightRAG (requires Python 3.10+)
-
-```bash
-python run_lightrag_standalone.py
-```
-
-### Analyse and visualise results
-
-```bash
-python analyze_results.py
+# Visualise results
 python visualize_results.py
 python visualize_judge.py
 ```
@@ -171,14 +128,13 @@ Key parameters in `config.yaml`:
 | `llm.model` | `gpt-4o-mini` | Answer generation model |
 | `embedding.model` | `text-embedding-3-small` | Embedding model |
 | `retrieval.chunk_size` | 400 | Token-level chunk size |
-| `retrieval.chunk_overlap` | 80 | Overlap between chunks |
 | `retrieval.top_k` | 5 | Retrieved chunks per query |
 
 ---
 
 ## Dataset
 
-**PubMedQA** (`qiaojin/PubMedQA`, `pqa_labeled` split) — 1,000 expert-annotated biomedical QA pairs derived from PubMed abstracts. Each instance contains a research question, context passages (sections), and a yes/no/maybe label with a long-form answer.
+**PubMedQA** (`qiaojin/PubMedQA`, `pqa_labeled` split) — expert-annotated biomedical QA pairs derived from PubMed abstracts, each containing a research question, context passages, and a yes/no/maybe label with a long-form answer.
 
 ---
 
